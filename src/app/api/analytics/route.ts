@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { connectDB, getDashboardDB } from '@/lib/db';
 import { verifyToken } from '@/lib/auth';
 import { UserRole } from '@/types';
@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 import { ObjectId } from 'mongodb';
 
 // GET /api/analytics - Get analytics overview
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get('auth_token')?.value;

@@ -8,7 +8,6 @@ import {
   TrendingDown,
   Calendar,
   CheckCircle,
-  XCircle,
   Clock,
   Users,
   Briefcase,
@@ -228,7 +227,7 @@ export default function AnalyticsPage() {
         >
           <h3 className="text-lg font-semibold text-slate-900 mb-4">Last 7 Days</h3>
           <div className="flex items-end justify-between gap-2 h-40">
-            {data.dailyBookings.map((day, index) => (
+            {data.dailyBookings.map((day) => (
               <div key={day.date} className="flex-1 flex flex-col items-center gap-2">
                 <div className="w-full flex flex-col items-center">
                   <span className="text-xs font-medium text-slate-900 mb-1">{day.count}</span>

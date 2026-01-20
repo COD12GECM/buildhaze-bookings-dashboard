@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB, getDashboardDB } from '@/lib/db';
-import { hashPassword, hashEmail, encrypt, generateAccessToken, setAuthCookie } from '@/lib/auth';
+import { hashPassword, generateAccessToken, setAuthCookie } from '@/lib/auth';
 import { UserRole } from '@/types';
-import { ObjectId } from 'mongodb';
 
 // GET /api/auth/accept-invite/[code] - Get invitation details
 export async function GET(

@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 import { ObjectId } from 'mongodb';
 
 // GET /api/services - List all services
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get('auth_token')?.value;

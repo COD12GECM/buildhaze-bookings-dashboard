@@ -9,7 +9,7 @@ import { sendAdminInvitation } from '@/lib/brevo';
 const JWT_SUPER_ADMIN_SECRET = process.env.JWT_SECRET + '_super_admin';
 
 // Verify super admin token
-async function verifySuperAdmin(request: NextRequest) {
+async function verifySuperAdmin() {
   const cookieStore = await cookies();
   const token = cookieStore.get('super_admin_token')?.value;
 
@@ -37,8 +37,8 @@ async function verifySuperAdmin(request: NextRequest) {
 }
 
 // GET /api/super-admin/businesses - List all businesses
-export async function GET(request: NextRequest) {
-  const superAdmin = await verifySuperAdmin(request);
+export async function GET() {
+  const superAdmin = await verifySuperAdmin();
   if (!superAdmin) {
     return NextResponse.json(
       { success: false, error: 'Unauthorized' },
@@ -100,7 +100,7 @@ export async function GET(request: NextRequest) {
 
 // POST /api/super-admin/businesses - Create business and send admin invitation
 export async function POST(request: NextRequest) {
-  const superAdmin = await verifySuperAdmin(request);
+  const superAdmin = await verifySuperAdmin();
   if (!superAdmin) {
     return NextResponse.json(
       { success: false, error: 'Unauthorized' },
