@@ -14,10 +14,11 @@ import {
   Mail,
   Phone,
   Clock,
-  MoreVertical,
   Loader2,
   CheckCircle,
   XCircle,
+  RefreshCw,
+  Trash2,
 } from 'lucide-react';
 
 interface Business {
@@ -41,6 +42,8 @@ export default function SuperAdminDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [ghostLoading, setGhostLoading] = useState<string | null>(null);
+  const [resendLoading, setResendLoading] = useState<string | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
 
   useEffect(() => {
     fetchBusinesses();
@@ -87,6 +90,52 @@ export default function SuperAdminDashboard() {
   const handleLogout = async () => {
     document.cookie = 'super_admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT';
     router.push('/super-admin/login');
+  };
+
+  const handleResendInvite = async (businessId: string) => {
+    setResendLoading(businessId);
+    try {
+      const response = await fetch(`/api/super-admin/businesses/${businessId}`, {
+        method: 'POST',
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        alert('Invitation resent successfully!');
+      } else {
+        alert(data.error || 'Failed to resend invitation');
+      }
+    } catch (error) {
+      console.error('Resend invite error:', error);
+      alert('Failed to resend invitation');
+    } finally {
+      setResendLoading(null);
+    }
+  };
+
+  const handleDeleteBusiness = async (businessId: string, businessName: string) => {
+    if (!confirm(`Are you sure you want to delete "${businessName}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    setDeleteLoading(businessId);
+    try {
+      const response = await fetch(`/api/super-admin/businesses/${businessId}`, {
+        method: 'DELETE',
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        fetchBusinesses();
+      } else {
+        alert(data.error || 'Failed to delete business');
+      }
+    } catch (error) {
+      console.error('Delete business error:', error);
+      alert('Failed to delete business');
+    } finally {
+      setDeleteLoading(null);
+    }
   };
 
   const filteredBusinesses = businesses.filter(
@@ -307,6 +356,7 @@ export default function SuperAdminDashboard() {
                             onClick={() => handleGhostLogin(business.id)}
                             disabled={ghostLoading === business.id}
                             className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 rounded-lg text-sm transition-colors disabled:opacity-50"
+                            title="Ghost Login"
                           >
                             {ghostLoading === business.id ? (
                               <Loader2 className="w-4 h-4 animate-spin" />
@@ -315,8 +365,30 @@ export default function SuperAdminDashboard() {
                             )}
                             Ghost
                           </button>
-                          <button className="p-1.5 text-slate-400 hover:text-white transition-colors">
-                            <MoreVertical className="w-5 h-5" />
+                          <button
+                            onClick={() => handleResendInvite(business.id)}
+                            disabled={resendLoading === business.id}
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-lg text-sm transition-colors disabled:opacity-50"
+                            title="Resend Invitation"
+                          >
+                            {resendLoading === business.id ? (
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                              <RefreshCw className="w-4 h-4" />
+                            )}
+                            Resend
+                          </button>
+                          <button
+                            onClick={() => handleDeleteBusiness(business.id, business.name)}
+                            disabled={deleteLoading === business.id}
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg text-sm transition-colors disabled:opacity-50"
+                            title="Delete Business"
+                          >
+                            {deleteLoading === business.id ? (
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                              <Trash2 className="w-4 h-4" />
+                            )}
                           </button>
                         </div>
                       </td>
