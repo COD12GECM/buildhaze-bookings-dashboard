@@ -35,7 +35,7 @@ export async function sendEmail(params: SendEmailParams): Promise<BrevoResponse>
     subject,
     htmlContent,
     textContent,
-    sender = { email: 'noreply@buildhaze.com', name: 'BuildHaze' },
+    sender = { email: 'bookingsbuildhaze@gmail.com', name: 'BuildHaze' },
     replyTo,
     tags,
   } = params;
