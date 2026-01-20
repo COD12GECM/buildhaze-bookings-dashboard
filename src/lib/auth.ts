@@ -25,6 +25,8 @@ export interface TokenPayload {
   email: string;
   role: UserRole;
   permissions: Record<string, boolean>;
+  isGhostLogin?: boolean;
+  ghostedBy?: string;
 }
 
 export interface AuthUser {
