@@ -17,7 +17,6 @@ import {
   ChevronDown,
   Briefcase,
   BarChart3,
-  MessageSquare,
 } from 'lucide-react';
 
 interface User {

@@ -145,8 +145,7 @@ export async function checkAvailability(params: AvailabilityCheckParams): Promis
   }
 
   // 5. Check working hours
-  const dayOfWeek = new Date(date).toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
-  // TODO: Load working hours from business settings
+  // TODO: Load working hours from business settings based on day
   const workingStart = timeToMinutes('09:00');
   const workingEnd = timeToMinutes('17:00');
   
@@ -231,14 +230,7 @@ function timeToMinutes(time: string): number {
   return hours * 60 + minutes;
 }
 
-/**
- * Helper: Convert minutes since midnight to time string
- */
-function minutesToTime(minutes: number): string {
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-}
+// minutesToTime helper available if needed for future use
 
 /**
  * Validate booking request with full engine check

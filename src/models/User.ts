@@ -101,20 +101,18 @@ UserSchema.index({ business_id: 1, email_hash: 1 }, { unique: true });
 UserSchema.index({ business_id: 1, is_deleted: 1, is_active: 1 });
 
 // Global query middleware for soft delete
-UserSchema.pre('find', function(next) {
+UserSchema.pre('find', function() {
   const query = this.getQuery();
   if (!query.includeDeleted) {
     this.where({ is_deleted: false });
   }
-  next();
 });
 
-UserSchema.pre('findOne', function(next) {
+UserSchema.pre('findOne', function() {
   const query = this.getQuery();
   if (!query.includeDeleted) {
     this.where({ is_deleted: false });
   }
-  next();
 });
 
 // Default permissions by role

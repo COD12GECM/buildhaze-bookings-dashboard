@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Calendar,
   Search,
-  Filter,
   Plus,
   ChevronLeft,
   ChevronRight,

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB, getBookingDB } from '@/lib/db';
-import { getCurrentUser, canAccessResource } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/auth';
 import { checkAvailability } from '@/lib/availability-engine';
 import { BookingStatus, UserRole } from '@/types';
 

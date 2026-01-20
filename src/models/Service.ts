@@ -67,11 +67,10 @@ ServiceSchema.index({ business_id: 1, name: 1 }, { unique: true });
 ServiceSchema.index({ business_id: 1, is_deleted: 1, is_enabled: 1 });
 
 // Increment version on update
-ServiceSchema.pre('save', function(next) {
+ServiceSchema.pre('save', function() {
   if (this.isModified() && !this.isNew) {
     this.version += 1;
   }
-  next();
 });
 
 export const Service = mongoose.models.Service || mongoose.model<IService>('Service', ServiceSchema);

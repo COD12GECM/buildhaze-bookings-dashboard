@@ -8,8 +8,6 @@ import {
   Clock,
   TrendingUp,
   CheckCircle,
-  XCircle,
-  AlertCircle,
   ArrowRight,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -141,7 +139,7 @@ export default function DashboardPage() {
       {/* Page header */}
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-        <p className="text-slate-500 mt-1">Welcome back! Here's what's happening today.</p>
+        <p className="text-slate-500 mt-1">Welcome back! Here&apos;s what&apos;s happening today.</p>
       </div>
 
       {/* Stats cards */}
@@ -171,7 +169,7 @@ export default function DashboardPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100">
         <div className="flex items-center justify-between p-6 border-b border-slate-100">
           <div>
-            <h2 className="text-lg font-semibold text-slate-900">Today's Bookings</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Today&apos;s Bookings</h2>
             <p className="text-sm text-slate-500">Manage your appointments for today</p>
           </div>
           <Link
