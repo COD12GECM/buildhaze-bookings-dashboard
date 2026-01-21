@@ -7,7 +7,7 @@ import { ObjectId } from 'mongodb';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret';
+const JWT_SUPER_ADMIN_SECRET = process.env.JWT_SECRET + '_super_admin';
 
 // Verify super admin token
 async function verifySuperAdmin(): Promise<{ valid: boolean; error?: string }> {
@@ -19,8 +19,15 @@ async function verifySuperAdmin(): Promise<{ valid: boolean; error?: string }> {
   }
 
   try {
-    const payload = jwt.verify(token, JWT_SECRET + '_super_admin') as { isSuperAdmin?: boolean };
-    if (!payload || !payload.isSuperAdmin) {
+    const payload = jwt.verify(token, JWT_SUPER_ADMIN_SECRET) as {
+      type: string;
+      userId: string;
+      email: string;
+      name: string;
+      permissions: Record<string, boolean>;
+    };
+    
+    if (payload.type !== 'super_admin') {
       return { valid: false, error: 'Invalid super admin token' };
     }
     return { valid: true };
