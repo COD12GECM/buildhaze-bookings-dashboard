@@ -512,7 +512,7 @@ export async function sendAdminInvitation(params: {
   inviteCode: string;
   inviterName: string;
 }): Promise<BrevoResponse> {
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://buildhaze-bookings-dashboard.onrender.com';
   const { subject, htmlContent } = generateAdminInviteEmail({
     recipientName: params.name,
     inviteCode: params.inviteCode,
@@ -536,7 +536,7 @@ export async function sendTeamInvitation(params: {
   businessName: string;
   role: 'STAFF' | 'PROVIDER';
 }): Promise<BrevoResponse> {
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://buildhaze-bookings-dashboard.onrender.com';
   const { subject, htmlContent } = generateTeamInviteEmail({
     recipientName: params.name,
     inviteCode: params.inviteCode,
